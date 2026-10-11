@@ -70,12 +70,13 @@ for epoch in range(num_epochs):
     mu1_hat = np.sum(gamma1 * X) / np.sum(gamma1)
     mu2_hat = np.sum(gamma2 * X) / np.sum(gamma2)
 
+    # Estimate SD of X1 and X2
     sigma1_hat = np.sqrt(np.sum(gamma1 * (X - mu1_hat)**2) / np.sum(gamma1))
     sigma2_hat = np.sqrt(np.sum(gamma2 * (X - mu2_hat)**2) / np.sum(gamma2))
 
     # Updating the prior
     pi1_hat = float(np.mean(gamma1))  # Get the mean of all 'soft counts' from each gamma, they become the next prior
-    pi2_hat = float(np.mean(gamma2))  # A Gaussian believes to own more of the data gest more weight when 'claiming' an ambiguous point
+    pi2_hat = float(np.mean(gamma2))  # A Gaussian believes to own more of the data gets more weight when 'claiming' an ambiguous point
 
     log_likelihood: float = np.sum(np.log(pi1_hat * norm.pdf(X, mu1_hat, sigma1_hat) + pi2_hat * norm.pdf(X, mu2_hat, sigma2_hat)))
     log_likelihoods.append(log_likelihood)
@@ -92,7 +93,7 @@ plt.ylabel('Log-Likelihood')
 plt.title('Log-Likelihood vs. Epoch')
 plt.show()
 
-# Show final estimate curves from original data (original smoothed with KDE)
+# Show final estimate curves from original data
 X_sorted: FloatArray = np.sort(X)
 density_estimation: FloatArray = (pi1_hat * norm.pdf(X_sorted, mu1_hat, sigma1_hat) + pi2_hat * norm.pdf (X_sorted, mu2_hat, sigma2_hat))
 
