@@ -1,0 +1,1 @@
+Used for my own understanding of Expectation Maximization. Based on https://www.geeksforgeeks.org/machine-learning/ml-expectation-maximization-algorithm/. I hope my own comments and type-hinting help!
